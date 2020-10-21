@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Search.css';
 
-export default class Search extends Component {
+function Search(props) {
 
-
-    render() {
-        return (
-            <div className="row justify-content-center">
-                <form>
-                    <input type="text" className="form-control" value={this.props.search} onChange={this.props.handleChange} />
-                </form>
-            </div>
-        )
-    }
+    return (
+        <div className="row justify-content-center">
+            <form>
+                <input type="text" className="form-control" value={props.search} onChange={props.handleChange} />
+            </form>
+        </div>
+    )
+    
 }
+
+export default Search
+

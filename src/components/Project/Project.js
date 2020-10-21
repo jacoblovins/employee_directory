@@ -28,8 +28,7 @@ export default class Project extends Component {
                         dob: correctDate
                     }
                 });
-
-
+                
                 this.setState({ results: resultsArr })
             })
             .catch(function (error) {
