@@ -1,6 +1,7 @@
 import React from 'react';
 import './Header.css';
 
+// Static header with name and directons
 function Header() {
     return (
         <div className="header">

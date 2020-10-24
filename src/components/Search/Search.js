@@ -1,6 +1,7 @@
 import React from 'react';
 import './Search.css';
 
+// Search input box component
 function Search(props) {
 
     return (

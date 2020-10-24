@@ -1,11 +1,9 @@
 import React from 'react'
 import './Table.css'
 
-
-
 function Table(props) {
+    // map through the results from the api call and make a table row for each person
     const people = props.results.map((person, i) => {
-
         return (
             <tr key={i}>
                 <th scope="row"><img src={person.image} alt="person" /></th>
@@ -17,7 +15,7 @@ function Table(props) {
         )
     })
 
-
+    // Render the table to the screen
     return (
         <table className="table table-striped">
             <thead>
@@ -30,6 +28,7 @@ function Table(props) {
                 </tr>
             </thead>
             <tbody>
+                {/* pass in our people rows array */}
                 {people}
             </tbody>
         </table>
