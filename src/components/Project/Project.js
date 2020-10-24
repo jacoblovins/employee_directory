@@ -8,7 +8,8 @@ export default class Project extends Component {
 
     state = {
         search: '',
-        results: []
+        results: [],
+        ascending: false
     };
 
     componentDidMount() {
@@ -25,7 +26,8 @@ export default class Project extends Component {
                         name: `${person.name.first} ${person.name.last}`,
                         phone: person.phone,
                         email: person.email,
-                        dob: correctDate
+                        dob: correctDate,
+                        age: person.dob.age
                     }
                 });
                 
@@ -47,11 +49,32 @@ export default class Project extends Component {
         });
     }
 
+    sortBy = key => {
+        if(this.state.ascending === true){
+            const sortedB = this.state.results.sort( (a, b) =>  a[key] < b[key] ? 1: -1);
+
+            this.setState({
+                results: sortedB,
+                ascending: false
+            });
+        } else {
+            const sortedA = this.state.results.sort( (a, b) =>  a[key] > b[key] ? 1: -1);
+    
+            this.setState({
+                results: sortedA,
+                ascending: true
+            });
+        }
+
+    }
+
+    
+
     render() {
         return (
             <div>
                 <Search search={this.state.search} handleChange={this.handleChange} />
-                <Table results={this.state.results} />
+                <Table results={this.state.results} sortBy={this.sortBy} />
             </div>
         )
     }

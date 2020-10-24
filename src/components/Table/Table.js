@@ -17,23 +17,16 @@ function Table(props) {
         )
     })
 
-    const nameSort = () => {
-
-    }
-
-    const dobSort = () => {
-        
-    }
 
     return (
         <table className="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">Image</th>
-                    <th scope="col" onClick={() => nameSort()}>Name</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">Email</th>
-                    <th scope="col" onClick={() => dobSort()}>DOB</th>
+                    <th scope="col">IMAGE</th>
+                    <th scope="col" onClick={() => props.sortBy('name')}>NAME &#8597;</th>
+                    <th scope="col">PHONE</th>
+                    <th scope="col">EMAIL</th>
+                    <th scope="col" onClick={() => props.sortBy('age')}>DOB &#8597;</th>
                 </tr>
             </thead>
             <tbody>
