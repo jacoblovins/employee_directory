@@ -1,4 +1,4 @@
-# employee_directory
+# Employee Directory
       
     
 ![License](https://img.shields.io/badge/License-APACHE%202.0-blue.svg)
