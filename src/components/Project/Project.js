@@ -1,20 +1,21 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Search from '../Search/Search';
 import Table from '../Table/Table';
 import axios from 'axios';
 let resultsArr;
 
-// Class component since it holds state
-export default class Project extends Component {
+function Project() {
     // Define initial state
-    state = {
-        search: '',
-        results: [],
-        ascending: false
-    };
+    const [search, setSearch] = useState('')
+    const [results, setResults] = useState([])
+    const [ascending, setAscending] = useState(false)
+
+    useEffect(() => {
+        init()
+    }, [])
 
     // When the component first renders, make the api call and store the data
-    componentDidMount() {
+    const init = () => {
         axios.get('https://randomuser.me/api/?results=100&exc=gender,location,login,cell,id,nat,registered')
             .then(response => {
                 // handle success
@@ -34,7 +35,7 @@ export default class Project extends Component {
                     }
                 });
 
-                this.setState({ results: resultsArr })
+                setResults(resultsArr)
             })
             .catch(function (error) {
                 // handle error
@@ -43,43 +44,40 @@ export default class Project extends Component {
     }
 
     // When the user types into the search bar, filter the results and set the state to the new array
-    handleChange = event => {
+    const handleChange = event => {
         const keyword = event.target.value;
         const filtered = resultsArr.filter(entry => Object.values(entry).some(val => typeof val === "string" && val.includes(keyword)));
 
-        this.setState({
-            search: event.target.value,
-            results: filtered
-        });
+        setSearch(event.target.value);
+        setResults(filtered)
     }
 
     // Sort by name or dob, ascending and decending
-    sortBy = key => {
-        if (this.state.ascending === true) {
-            const sortedB = this.state.results.sort((a, b) => a[key] < b[key] ? 1 : -1);
+    const sortBy = key => {
+        if (ascending === true) {
+            const sortedB = results.sort((a, b) => a[key] < b[key] ? 1 : -1);
 
-            this.setState({
-                results: sortedB,
-                ascending: false
-            });
+            setResults(sortedB)
+            setAscending(false)
+
         } else {
-            const sortedA = this.state.results.sort((a, b) => a[key] > b[key] ? 1 : -1);
+            const sortedA = results.sort((a, b) => a[key] > b[key] ? 1 : -1);
 
-            this.setState({
-                results: sortedA,
-                ascending: true
-            });
+            setResults(sortedA)
+            setAscending(true)
+
         }
 
     }
 
     // Render our search and table components with props
-    render() {
         return (
             <div>
-                <Search search={this.state.search} handleChange={this.handleChange} />
-                <Table results={this.state.results} sortBy={this.sortBy} />
+                <Search search={search} handleChange={handleChange} />
+                <Table results={results} sortBy={sortBy} />
             </div>
         )
-    }
+    
 }
+
+export default Project;
